@@ -18,14 +18,14 @@
         android:text="@string/options" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/toprecievebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/receiving_stocks" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/topsendbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
