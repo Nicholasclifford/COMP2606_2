@@ -3,6 +3,9 @@
     <string name="receiving_stocks">Receiving Stocks</string>
     <string name="ordering_stocks">Ordering Stocks</string>
     <string name="options">Please choose one of the following options</string>
+    <string name="receive_stock">Enter Quantity</string>
+    <string name="receive_button">Update Stock</string>
+    <string name="ordering_button">Make Stock</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
