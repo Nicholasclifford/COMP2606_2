@@ -1,6 +1,8 @@
 package com.example.product_management;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -22,13 +24,28 @@ public class ProductManagementDatabaseHelper extends SQLiteOpenHelper {
                 + "StockInTransit INTEGER, "
                 + "Price REAL,"
                 + "ReorderQuantity INTEGER,"
-                + "StockInTransit INTEGER,"
-                + "ReorderQuantity INTEGER);");
+                + "ReorderAmount INTEGER);");
+
+       insertproduct(db,"nails", 20,0,5.30f,0,0);
+       insertproduct(db,"hammer",100,0,6.00f,0,0);
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
+
+    public static void insertproduct(SQLiteDatabase db, String name, int onhand, int ontransit, float price, int quanity, int amount) {
+        ContentValues product =new ContentValues();
+        product.put("Name",name);
+        product.put("StockOnHand",onhand);
+        product.put("StockInTransit",ontransit);
+        product.put("Price",price);
+        product.put("ReorderQuantity",quanity);
+        product.put("ReorderAmount",amount);
+        db.insert("Product",null,product);
+    }
+
+
 
 }

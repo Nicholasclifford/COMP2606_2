@@ -20,20 +20,17 @@ public class sublevelActivity extends AppCompatActivity {
         option=intent.getExtras().getBoolean(choice);
 
 
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction ft=fragmentManager.beginTransaction();
         if(option) {
 
-            FragmentManager fragmentManager=getSupportFragmentManager();
-            FragmentTransaction ft=fragmentManager.beginTransaction();
             ft.replace(R.id.sublevel_frag, new ReceivingStocksFragment());
-            ft.commit();
         }
         else
         {
-            FragmentManager fragmentManager=getSupportFragmentManager();
-            FragmentTransaction ft=fragmentManager.beginTransaction();
             ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
-            ft.commit();
         }
+        ft.commit();
 
     }
 }
