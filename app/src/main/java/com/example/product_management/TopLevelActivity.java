@@ -14,6 +14,9 @@ public class TopLevelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //if the screen is large e.g.(tablet) this must load to the left of the screen
+        //while the output view loads to the right
+
         Button receive_button=findViewById(R.id.toprecievebutton);
         receive_button.setOnClickListener(new View.OnClickListener() {
             @Override

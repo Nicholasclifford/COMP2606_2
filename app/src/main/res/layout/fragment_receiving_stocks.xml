@@ -19,10 +19,11 @@
 
     <EditText
         android:id="@+id/quantity"
-        android:layout_width="125dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/receive_stock" />
+        android:hint="@string/receive_stock"
+        android:inputType="number"/>
 
     <Button
         android:id="@+id/receive_button"

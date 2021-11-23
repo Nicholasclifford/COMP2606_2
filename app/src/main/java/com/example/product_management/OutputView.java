@@ -48,40 +48,34 @@ public class OutputView extends Fragment {
         SQLiteOpenHelper sqlopen=new ProductManagementDatabaseHelper(getContext());
         try {
             SQLiteDatabase db=sqlopen.getReadableDatabase();
-            Cursor cursor= db.query("Product",new String[]{"_id","Name","StockOnHand","StockInTransit","ReorderQuantity","ReorderAmount"}
+            Cursor cursor= db.query("Product",new String[]{"_id","Name","StockOnHand","StockInTransit","Price","ReorderQuantity","ReorderAmount"}
             ,null, null,null,null,null);
 
-            DatabaseUtils.dumpCursor(cursor);
-            ArrayList<String> productlistviewArrayList=new ArrayList<String>();
+            //DatabaseUtils.dumpCursor(cursor);
+            ArrayList<String> productlistview= new ArrayList<>();
             cursor.moveToFirst();
             while(!cursor.isAfterLast())
             {
-                String test = null;
-                Productlistview f=new Productlistview(cursor.getString(1),Integer.toString(cursor.getInt(2)),
-                        Integer.toString(cursor.getInt(3)),Integer.toString(cursor.getInt(4)),
-                        Integer.toString(cursor.getInt(5)));
-               test= f.getProductname();
-               productlistviewArrayList.add(test);
+                String test ;
+
+                Productlistview d =new Productlistview(cursor.getString(1),Integer.toString(cursor.getInt(2)),
+                        Integer.toString(cursor.getInt(3)),cursor.getDouble(4),Integer.toString(cursor.getInt(5)),
+                        Integer.toString(cursor.getInt(6)));
+
+                test=d.getProductname();
+
+               productlistview.add(test);
 
                Log.v("testing",test);
 
                cursor.moveToNext();
             }
-           // String retest=productlistviewArrayList.get(0).getProductname();
-            //Log.v("before",retest);
 
-            String[] u={"hammer","nails"};
             ArrayAdapter list_adapter=new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1
-            ,productlistviewArrayList);
-
-
-         /*   SimpleCursorAdapter list_adapter=new SimpleCursorAdapter(getContext()
-                    , android.R.layout.simple_list_item_1,
-                    cursor,new String[]{"Name"}
-                    ,new int[]{android.R.id.text1},0);*/
+            ,productlistview);
 
             productlistView.setAdapter(list_adapter);
-           // cursor.close();
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast toast=Toast.makeText(getContext(),"Database not found...",Toast.LENGTH_SHORT);

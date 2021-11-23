@@ -1,5 +1,6 @@
 package com.example.product_management;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import android.widget.Toast;
 
 public class ReceivingStocksFragment extends Fragment implements View.OnClickListener{
 
+    private SQLiteDatabase db_spinner;
+    private Cursor cursor_spinner;
 
     public ReceivingStocksFragment() {
         // Required empty public constructor
@@ -56,7 +60,39 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
             public void onClick(View view) {
                 String product=String.valueOf(list.getSelectedItem());
                 int amount= Integer.parseInt(String.valueOf(stock.getText()));
-               // int a= Integer.parseInt(amount);
+                int position=list.getSelectedItemPosition()+1;
+
+                try{
+                    SQLiteOpenHelper database =new ProductManagementDatabaseHelper(getContext());
+                    SQLiteDatabase db= database.getReadableDatabase();
+                    Cursor cursor=db.query("Product",new String[]{"_id","Name","StockOnHand","StockInTransit"},
+                            "_id = ?",new String[]{Integer.toString(position)},null,null,null);
+
+                    cursor.moveToFirst();
+                    int old_on_vals=cursor.getInt(2);
+                    int old_in_vals=cursor.getInt(3);
+
+                    ContentValues update_value=new ContentValues();
+                    update_value.put("StockInTransit",old_in_vals-amount);
+                    update_value.put("StockOnHand",old_on_vals+amount);
+
+                    db.update("Product",update_value,"_id=?",new String[]{Integer.toString(position)});
+
+                    FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft=fragmentManager.beginTransaction();
+                    ft.replace(R.id.sublevel_frag,new ReceivingStocksFragment());
+                    ft.commit();
+
+                    cursor.close();
+                    db.close();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast toast=Toast.makeText(getContext(),"Something went wrong during operation",Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
 
 
             }
@@ -65,12 +101,12 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
         SQLiteOpenHelper database= new ProductManagementDatabaseHelper(getContext());
 
         try {
-            SQLiteDatabase db=database.getReadableDatabase();
-            Cursor cursor=db.query("Product",new String[]{"_id","Name"},null,
+            db_spinner=database.getReadableDatabase();
+            cursor_spinner=db_spinner.query("Product",new String[]{"_id","Name"},null,
                     null,null,null,null);
 
             SimpleCursorAdapter spinneradapter= new SimpleCursorAdapter(getContext(),
-                    android.R.layout.simple_list_item_1,cursor,new String[]{"Name"},
+                    android.R.layout.simple_list_item_1,cursor_spinner,new String[]{"Name"},
                     new int[]{android.R.id.text1,0}
                     );
             list.setAdapter(spinneradapter);
@@ -86,6 +122,14 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        db_spinner.close();
+        cursor_spinner.close();
 
     }
 }

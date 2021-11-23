@@ -46,6 +46,4 @@ public class ProductManagementDatabaseHelper extends SQLiteOpenHelper {
         db.insert("Product",null,product);
     }
 
-
-
 }
