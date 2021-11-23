@@ -1,6 +1,7 @@
 package com.example.product_management;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -19,18 +20,35 @@ public class sublevelActivity extends AppCompatActivity {
         Intent intent =getIntent();
         option=intent.getExtras().getBoolean(choice);
 
-
+        FragmentContainerView frag_tablet = (FragmentContainerView) findViewById(R.id.tabletmainview);
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction ft=fragmentManager.beginTransaction();
-        if(option) {
+        if (frag_tablet == null)
+        {
+            if(option) {
 
-            ft.replace(R.id.sublevel_frag, new ReceivingStocksFragment());
+                ft.replace(R.id.sublevel_frag, new ReceivingStocksFragment());
+            }
+            else
+            {
+                ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
+            }
+
         }
         else
         {
-            ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
+            if(option) {
+
+                ft.replace(R.id.tabletmainview, new ReceivingStocksFragment());
+            }
+            else
+            {
+                ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
+            }
+
         }
         ft.commit();
+
 
     }
 }

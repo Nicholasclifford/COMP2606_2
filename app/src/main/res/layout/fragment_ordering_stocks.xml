@@ -9,25 +9,32 @@
     <Spinner
         android:id="@+id/spinner_order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:minHeight="32dp"
+        tools:ignore="SpeakableTextPresentCheck" />
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/receive_stock" />
 
+
     <EditText
         android:id="@+id/quantity"
-        android:layout_width="125dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/receive_stock" />
+        android:hint="@string/receive_stock"
+        android:inputType="number"
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/order_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ordering_button" />
+
+
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"

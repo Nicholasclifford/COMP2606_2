@@ -1,6 +1,10 @@
 package com.example.product_management;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,24 +18,37 @@ public class TopLevelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button receive_button=findViewById(R.id.toprecievebutton);
-        receive_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(TopLevelActivity.this,sublevelActivity.class);
-                intent.putExtra(sublevelActivity.choice,true);
-                startActivity(intent);
-            }
-        });
-        Button ordering_button=findViewById(R.id.topsendbutton);
-        ordering_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(TopLevelActivity.this,sublevelActivity.class);
-                intent.putExtra(sublevelActivity.choice,false);
-                startActivity(intent);
-            }
-        });
+        //if the screen is large e.g.(tablet) this must load to the left of the screen
+        //while the output view loads to the right
 
+        FragmentContainerView frag_tablet = (FragmentContainerView) findViewById(R.id.tabletmainview);
+        if (frag_tablet == null) {
+
+            Button receive_button = findViewById(R.id.toprecievebutton);
+            receive_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(TopLevelActivity.this, sublevelActivity.class);
+                    intent.putExtra(sublevelActivity.choice, true);
+                    startActivity(intent);
+                }
+            });
+            Button ordering_button = findViewById(R.id.topsendbutton);
+            ordering_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(TopLevelActivity.this, sublevelActivity.class);
+                    intent.putExtra(sublevelActivity.choice, false);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.tabletmainview, new Topfragment());
+            ft.commit();
+
+
+        }
     }
 }
