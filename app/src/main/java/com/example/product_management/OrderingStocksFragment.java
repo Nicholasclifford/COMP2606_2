@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -37,11 +38,25 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
+
+            FragmentManager frag=getParentFragmentManager();
+            FragmentTransaction ft_tablet=frag.beginTransaction();
+            Fragment tablet=frag.findFragmentById(R.id.tabletdatabaseview);
+
             OutputView databaseoutput = new OutputView();
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-            ft.add(R.id.databaseshow, databaseoutput);
-            ft.addToBackStack(null);
+            if (tablet == null) {
+                ft.add(R.id.databaseshow, databaseoutput);
+                ft.addToBackStack(null);
+
+            }
+            else
+            {
+                ft.add(R.id.tabletdatabaseview, databaseoutput);
+            }
             ft.commit();
+
+
         }
     }
 
