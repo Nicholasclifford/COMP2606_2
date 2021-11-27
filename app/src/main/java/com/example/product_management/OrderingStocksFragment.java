@@ -99,8 +99,16 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                     //Toast toast=Toast.makeText(getContext(),"Database done",Toast.LENGTH_SHORT);
                     //toast.show();
 
+
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
+                    if(frag_tablet!=null)
+                    {
+                        ft.replace(R.id.tabletmainview,new OrderingStocksFragment());
+                        ft.commit();
+                    }
+
+
                     ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
                     ft.commit();
 
