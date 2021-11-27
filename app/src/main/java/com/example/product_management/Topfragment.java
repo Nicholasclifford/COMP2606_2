@@ -35,6 +35,8 @@ public class Topfragment extends Fragment implements View.OnClickListener{
         receive_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 Intent intent=new Intent(getActivity(),sublevelActivity.class);
                 intent.putExtra(sublevelActivity.choice,true);
                 startActivity(intent);
