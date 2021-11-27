@@ -25,7 +25,8 @@ import java.util.Arrays;
 
 //Use cursor to get data put data into one long string then use place in adapter
 public class OutputView extends Fragment {
-
+    SQLiteDatabase db;
+    Cursor cursor;
 
     public OutputView() {
         // Required empty public constructor
@@ -47,8 +48,8 @@ public class OutputView extends Fragment {
 
         SQLiteOpenHelper sqlopen=new ProductManagementDatabaseHelper(getContext());
         try {
-            SQLiteDatabase db=sqlopen.getReadableDatabase();
-            Cursor cursor= db.query("Product",new String[]{"_id","Name","StockOnHand","StockInTransit","Price","ReorderQuantity","ReorderAmount"}
+            db=sqlopen.getReadableDatabase();
+            cursor= db.query("Product",new String[]{"_id","Name","StockOnHand","StockInTransit","Price","ReorderQuantity","ReorderAmount"}
             ,null, null,null,null,null);
 
             //DatabaseUtils.dumpCursor(cursor);
@@ -86,5 +87,10 @@ public class OutputView extends Fragment {
         return layout;
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        db.close();
+        cursor.close();
+    }
 }
