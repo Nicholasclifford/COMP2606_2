@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,19 +38,29 @@ public class Topfragment extends Fragment implements View.OnClickListener{
             @Override
             public void onClick(View view) {
 
-
-                Intent intent=new Intent(getActivity(),sublevelActivity.class);
+              /*  Intent intent=new Intent(getActivity(),sublevelActivity.class);
                 intent.putExtra(sublevelActivity.choice,true);
-                startActivity(intent);
+                startActivity(intent);*/
+
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.tabletmainview, new ReceivingStocksFragment());
+                ft.commit();
             }
         });
         Button ordering_button=layout.findViewById(R.id.topsendbutton);
         ordering_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               /*
                 Intent intent=new Intent(getActivity(),sublevelActivity.class);
                 intent.putExtra(sublevelActivity.choice,false);
-                startActivity(intent);
+                startActivity(intent);*/
+
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
+                ft.commit();
             }
         });
 

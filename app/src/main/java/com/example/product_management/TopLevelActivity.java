@@ -28,26 +28,20 @@ public class TopLevelActivity extends AppCompatActivity {
             receive_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  /*  Intent intent = new Intent(TopLevelActivity.this, sublevelActivity.class);
+                    Intent intent = new Intent(TopLevelActivity.this, sublevelActivity.class);
                     intent.putExtra(sublevelActivity.choice, true);
-                    startActivity(intent);*/
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction ft = fragmentManager.beginTransaction();
-                    ft.replace(R.id.tabletmainview, new ReceivingStocksFragment());
-                    ft.commit();
+                    startActivity(intent);
+
                 }
             });
             Button ordering_button = findViewById(R.id.topsendbutton);
             ordering_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  /*  Intent intent = new Intent(TopLevelActivity.this, sublevelActivity.class);
+                    Intent intent = new Intent(TopLevelActivity.this, sublevelActivity.class);
                     intent.putExtra(sublevelActivity.choice, false);
-                    startActivity(intent);*/
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction ft = fragmentManager.beginTransaction();
-                    ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
-                    ft.commit();
+                    startActivity(intent);
+
                 }
             });
         } else {
