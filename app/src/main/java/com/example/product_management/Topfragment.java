@@ -64,8 +64,6 @@ public class Topfragment extends Fragment implements View.OnClickListener{
             }
         });
 
-
-
         return layout;
     }
 
