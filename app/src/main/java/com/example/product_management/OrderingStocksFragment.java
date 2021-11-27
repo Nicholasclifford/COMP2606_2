@@ -1,7 +1,6 @@
 package com.example.product_management;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,11 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,22 +36,11 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) {
 
-            FragmentManager frag=getParentFragmentManager();
-            FragmentTransaction ft_tablet=frag.beginTransaction();
-            Fragment tablet=frag.findFragmentById(R.id.tabletdatabaseview);
 
             OutputView databaseoutput = new OutputView();
             FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-            if (tablet == null) {
-                ft.add(R.id.databaseshow, databaseoutput);
-                ft.addToBackStack(null);
-
-            }
-            else
-            {
-                ft.add(R.id.tabletdatabaseview, databaseoutput);
-            }
-            ft.commit();
+            ft.add(R.id.databaseshow, databaseoutput);
+            ft.addToBackStack(null);
 
 
         }
@@ -157,6 +143,16 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
         super.onDestroyView();
         cursor_spinner.close();
         db_spinner.close();
+    }
+
+    private class update extends AsyncTask<Void ,Integer,Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return null;
+        }
+
     }
 
 }

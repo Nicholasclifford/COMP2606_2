@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 public class sublevelActivity extends AppCompatActivity {
 
@@ -24,7 +25,9 @@ public class sublevelActivity extends AppCompatActivity {
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction ft=fragmentManager.beginTransaction();
         if (frag_tablet == null)
-        {
+        {//phone view
+
+            Log.v("phone test","this tab is in the phone view ");
             if(option) {
 
                 ft.replace(R.id.sublevel_frag, new ReceivingStocksFragment());
@@ -37,6 +40,7 @@ public class sublevelActivity extends AppCompatActivity {
         }
         else
         {
+            Log.v("phone test","this tab is in the tablet view ");
             if(option) {
 
                 ft.replace(R.id.tabletmainview, new ReceivingStocksFragment());
