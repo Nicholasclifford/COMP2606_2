@@ -1,6 +1,7 @@
 package com.example.product_management;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -102,15 +103,13 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
-                    if(frag_tablet!=null)
+                    if(frag_tablet==null)
                     {
-                        ft.replace(R.id.tabletmainview,new OrderingStocksFragment());
+                        ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
                         ft.commit();
-                    }
+                   }
 
 
-                    ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
-                    ft.commit();
 
 
                     cursor.close();

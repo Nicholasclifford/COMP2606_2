@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,8 +23,8 @@ public class TopLevelActivity extends AppCompatActivity {
         //while the output view loads to the right
 
         FragmentContainerView frag_tablet = (FragmentContainerView) findViewById(R.id.tabletmainview);
-        if (frag_tablet == null) {
-
+        if (frag_tablet == null) { // in phone view
+            Log.v("phone test","this tab is in the phone view ");
             Button receive_button = findViewById(R.id.toprecievebutton);
             receive_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -45,6 +46,7 @@ public class TopLevelActivity extends AppCompatActivity {
                 }
             });
         } else {
+            Log.v("phone test","this tab is in the tablet view ");
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.tabletmainview, new Topfragment());
