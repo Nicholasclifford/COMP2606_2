@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -51,6 +52,13 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_ordering_stocks, container, false);
+        FragmentContainerView frag_tablet = (FragmentContainerView) layout.findViewById(R.id.tabletmainview);
+        if(frag_tablet!=null)
+        {
+            FragmentContainerView data_show= (FragmentContainerView) layout.findViewById(R.id.databaseshow);
+            data_show.setVisibility(View.GONE);
+        }
+
         Button button1 = layout.findViewById(R.id.order_button);
         Spinner list = layout.findViewById(R.id.spinner_order);
         EditText stock = layout.findViewById(R.id.quantity);

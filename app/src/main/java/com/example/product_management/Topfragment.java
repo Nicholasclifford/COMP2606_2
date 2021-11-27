@@ -45,6 +45,7 @@ public class Topfragment extends Fragment implements View.OnClickListener{
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.tabletmainview, new ReceivingStocksFragment());
+                ft.addToBackStack(null);
                 ft.commit();
             }
         });
@@ -60,6 +61,7 @@ public class Topfragment extends Fragment implements View.OnClickListener{
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
+                ft.addToBackStack(null);
                 ft.commit();
             }
         });
