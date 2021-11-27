@@ -54,12 +54,11 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
         // Inflate the layout for this fragment
         View layout=inflater.inflate(R.layout.fragment_receiving_stocks, container, false);
         FragmentContainerView frag_tablet = (FragmentContainerView) layout.findViewById(R.id.tabletmainview);
-        if(frag_tablet==null)
+        if(frag_tablet!=null)
         {
             FragmentContainerView data_show= (FragmentContainerView) layout.findViewById(R.id.databaseshow);
             data_show.setVisibility(View.GONE);
         }
-
 
         Button button1=layout.findViewById(R.id.receive_button);
         Spinner list=layout.findViewById(R.id.spinner_receive);
