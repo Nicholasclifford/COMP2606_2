@@ -168,7 +168,7 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
                 ContentValues update_value=new ContentValues();
                 update_value.put("StockInTransit",old_in_vals-amount);
                 update_value.put("StockOnHand",old_on_vals+amount);
-                update_value.put("DIRTY BIT",true);
+                update_value.put("DIRTYBIT",true);
 
                 db.update("Product",update_value,"_id=?",new String[]{Integer.toString(position)});
 

@@ -146,8 +146,8 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
         } catch (Exception e) {
             e.printStackTrace();
 
-            Toast toast = Toast.makeText(getContext(), "database not found", Toast.LENGTH_SHORT);
-            toast.show();
+            //Toast toast = Toast.makeText(getContext(), "database not found", Toast.LENGTH_SHORT);
+            //toast.show();
         }
         return layout;
     }
@@ -188,7 +188,7 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
 
                 ContentValues update_value = new ContentValues();
                 update_value.put("StockInTransit", oldvals + amount);
-                update_value.put("DIRTY BIT",true);
+                update_value.put("DIRTYBIT",true);
 
                 db.update("Product", update_value, "_id=?", new String[]{Integer.toString(position)});
                 //Toast toast=Toast.makeText(getContext(),"Database done",Toast.LENGTH_SHORT);

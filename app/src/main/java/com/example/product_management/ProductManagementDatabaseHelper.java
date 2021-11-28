@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ProductManagementDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "product_management"; // the name of our database
-    private static final int DB_VERSION = 1; // the version of the database
+    private static final int DB_VERSION = 2; // the version of the database
 
     ProductManagementDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -17,8 +17,18 @@ public class ProductManagementDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        updateMyDatabase(db,0,DB_VERSION);
-       }
+        db.execSQL("CREATE TABLE Product ("
+                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "Name TEXT, "
+                + "StockOnHand INTEGER, "
+                + "StockInTransit INTEGER, "
+                + "Price REAL,"
+                + "ReorderQuantity INTEGER,"
+                + "ReorderAmount INTEGER);");
+
+        insertproduct(db,"nails", 20,0,5.30f,0,0);
+        insertproduct(db,"hammer",100,0,6.00f,0,0);
+    }
 
 
     @Override
@@ -57,7 +67,7 @@ public class ProductManagementDatabaseHelper extends SQLiteOpenHelper {
         }
         if(oldVersion<2)
         {
-            db.execSQL("Alter table DRINK add column DIRTY BIT default 'FALSE'");
+            db.execSQL("Alter table Product add column DIRTYBIT default 'FALSE'");
         }
     }
 }
