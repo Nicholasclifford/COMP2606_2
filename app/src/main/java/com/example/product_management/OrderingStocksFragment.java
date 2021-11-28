@@ -1,19 +1,11 @@
 package com.example.product_management;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +14,11 @@ import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class OrderingStocksFragment extends Fragment implements View.OnClickListener {
@@ -66,19 +63,26 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-  /*              {
-                    Toast toast=Toast.makeText(getContext(),"Please enter a number",Toast.LENGTH_SHORT);
-                    return;
-                }*/
-                String product = String.valueOf(list.getSelectedItem());
+
+
+
+               // String product = String.valueOf(list.getSelectedItem());
                 int position = list.getSelectedItemPosition() + 1;
                 int amount = Integer.parseInt(String.valueOf(stock.getText()));
                 // int a= Integer.parseInt(amount);
+                new update().execute(position,amount);
 
 
+                if(frag_tablet==null)
+                {
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
+                    ft.commit();
+                }
 
                 //pre-execute
-                try {
+               /* try {
                     SQLiteOpenHelper database = new ProductManagementDatabaseHelper(getContext());
                     SQLiteDatabase db = database.getReadableDatabase();
                     Cursor cursor = db.query("Product", new String[]{"_id", "Name", "StockInTransit"},
@@ -119,7 +123,7 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                     Toast toast = Toast.makeText(getContext(), "Something went wrong during operation", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
-                }
+                }*/
                 //let the database run in the background
             }
         });
@@ -160,14 +164,58 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
         db_spinner.close();
     }
 
-    private class update extends AsyncTask<Void ,Integer,Boolean>
+    private class update extends AsyncTask<Integer ,Integer,Boolean>
     {
-
         @Override
-        protected Boolean doInBackground(Void... voids) {
-            return null;
+        protected Boolean doInBackground(Integer... integers) {
+
+            int position=integers[0];
+            int amount=integers[1];
+            try {
+                SQLiteOpenHelper database = new ProductManagementDatabaseHelper(getContext());
+                SQLiteDatabase db = database.getReadableDatabase();
+                Cursor cursor = db.query("Product", new String[]{"_id", "Name", "StockInTransit"},
+                        "_id = ?", new String[]{Integer.toString(position)}, null, null, null);
+
+
+
+                //Log.v("string test",product);
+                //DatabaseUtils.dumpCursor(cursor);
+
+
+                cursor.moveToFirst();
+                int oldvals = cursor.getInt(2);
+
+                ContentValues update_value = new ContentValues();
+                update_value.put("StockInTransit", oldvals + amount);
+                update_value.put("DIRTY BIT",true);
+
+                db.update("Product", update_value, "_id=?", new String[]{Integer.toString(position)});
+                //Toast toast=Toast.makeText(getContext(),"Database done",Toast.LENGTH_SHORT);
+                //toast.show();
+
+
+                cursor.close();
+                db.close();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                return false;
+            }
+
         }
 
+
+        protected void onPostExecute(Boolean aBoolean) {
+            //super.onPostExecute(aBoolean);
+
+            if (!aBoolean)
+            {
+                Toast toast = Toast.makeText(getContext(), "database not found", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
     }
 
 }

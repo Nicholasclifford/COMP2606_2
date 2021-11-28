@@ -4,23 +4,21 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentContainerView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.view.ContentInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 public class ReceivingStocksFragment extends Fragment implements View.OnClickListener{
@@ -70,7 +68,8 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
                 int amount= Integer.parseInt(String.valueOf(stock.getText()));
                 int position=list.getSelectedItemPosition()+1;
 
-                try{
+                new update_orderstock().execute(position,amount);
+               /* try{
                     SQLiteOpenHelper database =new ProductManagementDatabaseHelper(getContext());
                     SQLiteDatabase db= database.getReadableDatabase();
                     Cursor cursor=db.query("Product",new String[]{"_id","Name","StockOnHand","StockInTransit"},
@@ -100,6 +99,14 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
                     Toast toast=Toast.makeText(getContext(),"Something went wrong during operation",Toast.LENGTH_SHORT);
                     toast.show();
 
+                }*/
+
+                if(frag_tablet==null)
+                {
+                    FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft=fragmentManager.beginTransaction();
+                    ft.replace(R.id.sublevel_frag,new ReceivingStocksFragment());
+                    ft.commit();
                 }
 
 
@@ -139,5 +146,51 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
         db_spinner.close();
         cursor_spinner.close();
 
+    }
+    public class update_orderstock extends AsyncTask<Integer ,Integer,Boolean>
+    {
+
+        protected Boolean doInBackground(Integer... integers) {
+            try{
+
+                int position=integers[0];
+                int amount=integers[1];
+
+                SQLiteOpenHelper database =new ProductManagementDatabaseHelper(getContext());
+                SQLiteDatabase db= database.getReadableDatabase();
+                Cursor cursor=db.query("Product",new String[]{"_id","Name","StockOnHand","StockInTransit"},
+                        "_id = ?",new String[]{Integer.toString(position)},null,null,null);
+
+                cursor.moveToFirst();
+                int old_on_vals=cursor.getInt(2);
+                int old_in_vals=cursor.getInt(3);
+
+                ContentValues update_value=new ContentValues();
+                update_value.put("StockInTransit",old_in_vals-amount);
+                update_value.put("StockOnHand",old_on_vals+amount);
+                update_value.put("DIRTY BIT",true);
+
+                db.update("Product",update_value,"_id=?",new String[]{Integer.toString(position)});
+
+                cursor.close();
+                db.close();
+                return true;
+
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        
+        protected void onPostExecute(Boolean aBoolean) {
+            //super.onPostExecute(aBoolean);
+
+            if(!aBoolean)
+            {
+                Toast toast = Toast.makeText(getContext(), "database not found", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+        }
     }
 }

@@ -17,22 +17,14 @@ public class ProductManagementDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE Product ("
-                + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "Name TEXT, "
-                + "StockOnHand INTEGER, "
-                + "StockInTransit INTEGER, "
-                + "Price REAL,"
-                + "ReorderQuantity INTEGER,"
-                + "ReorderAmount INTEGER);");
-
-       insertproduct(db,"nails", 20,0,5.30f,0,0);
-       insertproduct(db,"hammer",100,0,6.00f,0,0);
-    }
+        updateMyDatabase(db,0,DB_VERSION);
+       }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        updateMyDatabase(db, oldVersion, newVersion);
+
     }
 
     public static void insertproduct(SQLiteDatabase db, String name, int onhand, int ontransit, float price, int quanity, int amount) {
@@ -46,4 +38,26 @@ public class ProductManagementDatabaseHelper extends SQLiteOpenHelper {
         db.insert("Product",null,product);
     }
 
+    public void updateMyDatabase(SQLiteDatabase db,int oldVersion, int newVersion)
+    {
+        if(oldVersion<1)
+        {
+            db.execSQL("CREATE TABLE Product ("
+                    + "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "Name TEXT, "
+                    + "StockOnHand INTEGER, "
+                    + "StockInTransit INTEGER, "
+                    + "Price REAL,"
+                    + "ReorderQuantity INTEGER,"
+                    + "ReorderAmount INTEGER);");
+
+            insertproduct(db,"nails", 20,0,5.30f,0,0);
+            insertproduct(db,"hammer",100,0,6.00f,0,0);
+
+        }
+        if(oldVersion<2)
+        {
+            db.execSQL("Alter table DRINK add column DIRTY BIT default 'FALSE'");
+        }
+    }
 }
