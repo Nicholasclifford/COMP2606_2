@@ -101,11 +101,18 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
 
                 }*/
 
-                if(frag_tablet==null)
+                if(frag_tablet!=null)
                 {
                     FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                     FragmentTransaction ft=fragmentManager.beginTransaction();
                     ft.replace(R.id.sublevel_frag,new ReceivingStocksFragment());
+                    ft.commit();
+                }
+                else{
+                    FragmentManager fragmentManager = getParentFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
+                    ft.addToBackStack(null);
                     ft.commit();
                 }
 

@@ -73,11 +73,18 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                 new update().execute(position,amount);
 
 
-                if(frag_tablet==null)
+                if(frag_tablet!=null)
                 {
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
                     ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
+                    ft.commit();
+                }
+                else{
+                    FragmentManager fragmentManager = getParentFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
+                    ft.addToBackStack(null);
                     ft.commit();
                 }
 
