@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ProductManagementDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "product_management"; // the name of our database
-    private static final int DB_VERSION = 2; // the version of the database
+    private static final int DB_VERSION = 1; // the version of the database
 
     ProductManagementDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);

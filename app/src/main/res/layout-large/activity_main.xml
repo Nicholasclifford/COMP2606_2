@@ -16,30 +16,7 @@
 
     />
 
-<!--
-    <TextView
-        android:id="@+id/textView"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/options" />
 
-    <Button
-        android:id="@+id/toprecievebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/receiving_stocks" />
-
-    <Button
-        android:id="@+id/topsendbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/ordering_stocks" />
-
--->
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="0dp"

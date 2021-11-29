@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.Objects;
 
 
 public class ReceivingStocksFragment extends Fragment implements View.OnClickListener{
@@ -114,6 +117,8 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
                     ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
                     ft.addToBackStack(null);
                     ft.commit();
+                    ft.replace(R.id.tabletdatabaseview,new OutputView());
+                    ft.commit();
                 }
 
 
@@ -194,8 +199,10 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
 
             if(!aBoolean)
             {
-                Toast toast = Toast.makeText(getContext(), "database not found", Toast.LENGTH_SHORT);
-                toast.show();
+                Log.v("ERROR","something went wrong during operation");
+
+               // Toast toast = Toast.makeText(requireActivity(), "database not found", Toast.LENGTH_SHORT);
+                //toast.show();
             }
 
         }
