@@ -22,7 +22,7 @@ public class TopLevelActivity extends AppCompatActivity {
         //if the screen is large e.g.(tablet) this must load to the left of the screen
         //while the output view loads to the right
 
-        FragmentContainerView frag_tablet = (FragmentContainerView) findViewById(R.id.tabletmainview);
+        FragmentContainerView frag_tablet = findViewById(R.id.tabletmainview);
         if (frag_tablet == null) { // in phone view
             Log.v("phone test","this tab is in the phone view ");
             Button receive_button = findViewById(R.id.toprecievebutton);

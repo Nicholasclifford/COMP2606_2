@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,66 +76,27 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
 
                 if(frag_tablet!=null)
                 {
+                    
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
-                    ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
-                    ft.commit();
+                    //ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
                     ft.replace(R.id.tabletdatabaseview,new OutputView());
+                    ft.commit();
+
                     //ft.commit();
                 }
                 else{
+                    Log.v("last","This has to be in phone view");
                     FragmentManager fragmentManager = getParentFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
                     ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
-                    //ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
                     ft.addToBackStack(null);
                     ft.commit();
                 }
 
 
                 //pre-execute
-               /* try {
-                    SQLiteOpenHelper database = new ProductManagementDatabaseHelper(getContext());
-                    SQLiteDatabase db = database.getReadableDatabase();
-                    Cursor cursor = db.query("Product", new String[]{"_id", "Name", "StockInTransit"},
-                            "_id = ?", new String[]{Integer.toString(position)}, null, null, null);
 
-
-
-                    //Log.v("string test",product);
-                    DatabaseUtils.dumpCursor(cursor);
-
-
-                    cursor.moveToFirst();
-                    int oldvals = cursor.getInt(2);
-
-                    ContentValues update_value = new ContentValues();
-                    update_value.put("StockInTransit", oldvals + amount);
-
-                    db.update("Product", update_value, "_id=?", new String[]{Integer.toString(position)});
-                    //Toast toast=Toast.makeText(getContext(),"Database done",Toast.LENGTH_SHORT);
-                    //toast.show();
-
-
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction ft = fragmentManager.beginTransaction();
-                    if(frag_tablet==null)
-                    {
-                        ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
-                        ft.commit();
-                   }
-
-
-
-
-                    cursor.close();
-                    db.close();//This works but needs to use product variable in new String[]
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast toast = Toast.makeText(getContext(), "Something went wrong during operation", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }*/
                 //let the database run in the background
             }
         });

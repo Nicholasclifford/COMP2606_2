@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 
 public class Productlistview {
 
-    private String productname;
+    private final String productname;
 
     public String getProductname() {
         return productname;

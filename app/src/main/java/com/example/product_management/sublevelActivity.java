@@ -21,7 +21,7 @@ public class sublevelActivity extends AppCompatActivity {
         Intent intent =getIntent();
         option=intent.getExtras().getBoolean(choice);
 
-        FragmentContainerView frag_tablet = (FragmentContainerView) findViewById(R.id.tabletmainview);
+        FragmentContainerView frag_tablet = findViewById(R.id.tabletmainview);
         FragmentManager fragmentManager=getSupportFragmentManager();
         FragmentTransaction ft=fragmentManager.beginTransaction();
         if (frag_tablet == null)
