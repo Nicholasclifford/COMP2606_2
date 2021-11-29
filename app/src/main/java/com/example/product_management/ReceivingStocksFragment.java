@@ -119,7 +119,6 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
                     FragmentTransaction ft = fragmentManager.beginTransaction();
                     //ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
                     ft.replace(R.id.sublevel_frag,new ReceivingStocksFragment());
-                    ft.addToBackStack(null);
                     ft.commit();
                     //ft.replace(R.id.tabletdatabaseview,new OutputView());
                     //ft.commit();

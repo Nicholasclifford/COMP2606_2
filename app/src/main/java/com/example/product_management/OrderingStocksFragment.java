@@ -79,8 +79,8 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                     
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
-                    //ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
                     ft.replace(R.id.tabletdatabaseview,new OutputView());
+                    ft.addToBackStack(null);
                     ft.commit();
 
                     //ft.commit();
@@ -90,7 +90,6 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                     FragmentManager fragmentManager = getParentFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
                     ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
-                    ft.addToBackStack(null);
                     ft.commit();
                 }
 
