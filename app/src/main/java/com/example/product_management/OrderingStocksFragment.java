@@ -80,12 +80,13 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                     ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
                     ft.commit();
                     ft.replace(R.id.tabletdatabaseview,new OutputView());
-                    ft.commit();
+                    //ft.commit();
                 }
                 else{
                     FragmentManager fragmentManager = getParentFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
-                    ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
+                    ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
+                    //ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
                     ft.addToBackStack(null);
                     ft.commit();
                 }

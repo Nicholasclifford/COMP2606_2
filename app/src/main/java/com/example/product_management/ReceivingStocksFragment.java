@@ -59,6 +59,7 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
         {
             FragmentContainerView data_show= (FragmentContainerView) layout.findViewById(R.id.databaseshow);
             data_show.setVisibility(View.GONE);
+            Log.v("Database test","Block of code is working");
         }
 
         Button button1=layout.findViewById(R.id.receive_button);
@@ -106,19 +107,22 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
 
                 if(frag_tablet!=null)
                 {
+                    Log.v("Database test after","Block of code is working");
                     FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                     FragmentTransaction ft=fragmentManager.beginTransaction();
                     ft.replace(R.id.sublevel_frag,new ReceivingStocksFragment());
                     ft.commit();
                 }
                 else{
+
                     FragmentManager fragmentManager = getParentFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
-                    ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
+                    //ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
+                    ft.replace(R.id.sublevel_frag,new ReceivingStocksFragment());
                     ft.addToBackStack(null);
                     ft.commit();
-                    ft.replace(R.id.tabletdatabaseview,new OutputView());
-                    ft.commit();
+                    //ft.replace(R.id.tabletdatabaseview,new OutputView());
+                    //ft.commit();
                 }
 
 
