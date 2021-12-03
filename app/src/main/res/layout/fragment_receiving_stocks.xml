@@ -9,7 +9,9 @@
     <Spinner
         android:id="@+id/spinner_receive"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:minHeight="32dp"
+        tools:ignore="SpeakableTextPresentCheck"  />
 
     <TextView
         android:id="@+id/textView2"
@@ -23,7 +25,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/receive_stock"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:minHeight="48dp"/>
+
 
     <Button
         android:id="@+id/receive_button"
@@ -37,6 +41,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:visibility="visible" />
+        />
 
 </LinearLayout>

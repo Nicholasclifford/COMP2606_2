@@ -54,8 +54,10 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
         FragmentContainerView frag_tablet = (FragmentContainerView) layout.findViewById(R.id.tabletmainview);
         if(frag_tablet!=null)
         {
+            //in tablet view
             FragmentContainerView data_show= (FragmentContainerView) layout.findViewById(R.id.databaseshow);
             data_show.setVisibility(View.GONE);
+            Log.v("tablet test","Block of code is working");
         }
 
         Button button1 = layout.findViewById(R.id.order_button);
@@ -65,14 +67,11 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
             @Override
             public void onClick(View view) {
 
-
-
                // String product = String.valueOf(list.getSelectedItem());
                 int position = list.getSelectedItemPosition() + 1;
                 int amount = Integer.parseInt(String.valueOf(stock.getText()));
-                // int a= Integer.parseInt(amount);
-                new update().execute(position,amount);
 
+                new update().execute(position,amount);
 
                 if(frag_tablet!=null)
                 {
@@ -82,8 +81,6 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                     ft.replace(R.id.tabletdatabaseview,new OutputView());
                     ft.addToBackStack(null);
                     ft.commit();
-
-                    //ft.commit();
                 }
                 else{
                     Log.v("last","This has to be in phone view");
@@ -92,17 +89,13 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                     ft.replace(R.id.sublevel_frag, new OrderingStocksFragment());
                     ft.commit();
                 }
-
-
-                //pre-execute
-
-                //let the database run in the background
             }
         });
 
 
 //Spinner setup
         SQLiteOpenHelper database = new ProductManagementDatabaseHelper(getContext());
+
         try {
             db_spinner = database.getReadableDatabase();
             cursor_spinner = db_spinner.query("Product", new String[]{"_id", "Name"}, null,
@@ -118,8 +111,8 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
         } catch (Exception e) {
             e.printStackTrace();
 
-            //Toast toast = Toast.makeText(getContext(), "database not found", Toast.LENGTH_SHORT);
-            //toast.show();
+            Toast toast = Toast.makeText(getContext(), "database not found", Toast.LENGTH_SHORT);
+            toast.show();
         }
         return layout;
     }
@@ -138,7 +131,7 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
 
     private class update extends AsyncTask<Integer ,Integer,Boolean>
     {
-        @Override
+
         protected Boolean doInBackground(Integer... integers) {
 
             int position=integers[0];
@@ -149,12 +142,6 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                 Cursor cursor = db.query("Product", new String[]{"_id", "Name", "StockInTransit"},
                         "_id = ?", new String[]{Integer.toString(position)}, null, null, null);
 
-
-
-                //Log.v("string test",product);
-                //DatabaseUtils.dumpCursor(cursor);
-
-
                 cursor.moveToFirst();
                 int oldvals = cursor.getInt(2);
 
@@ -163,9 +150,6 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
                 update_value.put("DIRTYBIT",true);
 
                 db.update("Product", update_value, "_id=?", new String[]{Integer.toString(position)});
-                //Toast toast=Toast.makeText(getContext(),"Database done",Toast.LENGTH_SHORT);
-                //toast.show();
-
 
                 cursor.close();
                 db.close();
@@ -178,10 +162,8 @@ public class OrderingStocksFragment extends Fragment implements View.OnClickList
 
         }
 
-
         protected void onPostExecute(Boolean aBoolean) {
             //super.onPostExecute(aBoolean);
-
             if (!aBoolean)
             {
                 Toast toast = Toast.makeText(getContext(), "database not found", Toast.LENGTH_SHORT);

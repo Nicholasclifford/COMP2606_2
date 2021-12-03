@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:minHeight="32dp"
         tools:ignore="SpeakableTextPresentCheck" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/receive_stock" />
-
 
     <EditText
         android:id="@+id/quantity"

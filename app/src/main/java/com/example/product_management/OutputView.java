@@ -67,7 +67,7 @@ public class OutputView extends Fragment {
 
                productlistview.add(test);
 
-               Log.v("testing",test);
+               //Log.v("testing",test);
 
                cursor.moveToNext();
             }

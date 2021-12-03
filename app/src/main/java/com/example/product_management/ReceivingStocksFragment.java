@@ -57,9 +57,10 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
         FragmentContainerView frag_tablet = layout.findViewById(R.id.tabletmainview);
         if(frag_tablet!=null)
         {
+            //in tablet view
             FragmentContainerView data_show= layout.findViewById(R.id.databaseshow);
             data_show.setVisibility(View.GONE);
-            Log.v("Database test","Block of code is working");
+            Log.v("tablet test","Block of code is working");
         }
 
         Button button1=layout.findViewById(R.id.receive_button);
@@ -68,42 +69,11 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String product=String.valueOf(list.getSelectedItem());
+               // String product=String.valueOf(list.getSelectedItem());
                 int amount= Integer.parseInt(String.valueOf(stock.getText()));
                 int position=list.getSelectedItemPosition()+1;
 
                 new update_orderstock().execute(position,amount);
-               /* try{
-                    SQLiteOpenHelper database =new ProductManagementDatabaseHelper(getContext());
-                    SQLiteDatabase db= database.getReadableDatabase();
-                    Cursor cursor=db.query("Product",new String[]{"_id","Name","StockOnHand","StockInTransit"},
-                            "_id = ?",new String[]{Integer.toString(position)},null,null,null);
-
-                    cursor.moveToFirst();
-                    int old_on_vals=cursor.getInt(2);
-                    int old_in_vals=cursor.getInt(3);
-
-                    ContentValues update_value=new ContentValues();
-                    update_value.put("StockInTransit",old_in_vals-amount);
-                    update_value.put("StockOnHand",old_on_vals+amount);
-
-                    db.update("Product",update_value,"_id=?",new String[]{Integer.toString(position)});
-
-                    FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-                    FragmentTransaction ft=fragmentManager.beginTransaction();
-                    ft.replace(R.id.sublevel_frag,new ReceivingStocksFragment());
-                    ft.commit();
-
-                    cursor.close();
-                    db.close();
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Toast toast=Toast.makeText(getContext(),"Something went wrong during operation",Toast.LENGTH_SHORT);
-                    toast.show();
-
-                }*/
 
                 if(frag_tablet!=null)
                 {
@@ -114,20 +84,18 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
                     ft.commit();
                 }
                 else{
-
                     FragmentManager fragmentManager = getParentFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
-                    //ft.replace(R.id.tabletmainview, new OrderingStocksFragment());
                     ft.replace(R.id.sublevel_frag,new ReceivingStocksFragment());
                     ft.commit();
-                    //ft.replace(R.id.tabletdatabaseview,new OutputView());
-                    //ft.commit();
-                }
+                    Log.v("last","This has to be in phone view");
 
+                }
 
             }
         });
 
+//Spinner setup
         SQLiteOpenHelper database= new ProductManagementDatabaseHelper(getContext());
 
         try {
@@ -146,7 +114,6 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
             Toast toast=Toast.makeText(getContext(),"database not found",Toast.LENGTH_SHORT);
             toast.show();
         }
-
         return layout;
     }
 
@@ -162,6 +129,7 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
         cursor_spinner.close();
 
     }
+
     public class update_orderstock extends AsyncTask<Integer ,Integer,Boolean>
     {
 
@@ -196,7 +164,6 @@ public class ReceivingStocksFragment extends Fragment implements View.OnClickLis
             }
         }
 
-        
         protected void onPostExecute(Boolean aBoolean) {
             //super.onPostExecute(aBoolean);
 

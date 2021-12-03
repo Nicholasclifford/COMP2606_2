@@ -30,4 +30,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="@string/ordering_stocks" />
+
+    <Button
+        android:id="@+id/sync_database_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sync"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>
